@@ -20,7 +20,7 @@
     <p>Source of fire estimated: <i>Lat:</i> ${location.latitude} <i>Long:</i> ${location.longitude}</p>
     <div id="map1" class="map" data-src="${map}" />
 	<p><i>${mapDescription}</i></p> 	
-    <p>The blue markers(1) are water drops. The green marker(2) is the wildfire station. The Arrow points in the direction of the prevailing wind. The Red line is the fire line.</p>
+    <p>The blue markers(1) are water drops made by the fire 'copter. The green marker(2) is the wildfire station. The Arrow points in the direction of the prevailing wind. The Red line is the fire line.</p>
     <div class="new-page"/>
       <H2>A Random Chart</H2>
 	  <div id="chart1" class="chart"/>

@@ -36,4 +36,4 @@ The MapBuilder builds urls that are compliant with the mapbox static api:
                             .buildUrl();
 ```
 
-A sample report can be seen here: 
+A sample report can be seen [here](https://github.com/plasma147/report-gen/raw/master/fire.pdf) 

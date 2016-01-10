@@ -10,13 +10,13 @@ To generate the Wildfire pdf report:
   MapBuilder mapBuilder = new MapBuilder(MapboxApiKey.get());
 
   TemplateBuilder<FireData> templateBuilder = TemplateBuilder.withTemplate(
-                                                                FIRE_REPORT_TYPE, 
-                                                                classPathTemplateProvider("/fire.html.ftl"),
-                                                                new FireTemplateProvider(mapBuilder));
+                                              FIRE_REPORT_TYPE, 
+                                              classPathTemplateProvider("/fire.html.ftl"),
+                                              new FireTemplateProvider(mapBuilder));
 
   ReportGenerator<FireData> generator = ReportGenerator.withTemplateBuilder(templateBuilder)
-                                                         .withReplacer(new ReplaceWithMap<>())
-                                                         .withReplacer(new ReplaceWithChart<>(new FireChartMaker()));
+                                             .withReplacer(new ReplaceWithMap<>())
+                                             .withReplacer(new ReplaceWithChart<>(new FireChartMaker()));
 
   generator.generate(FIRE_REPORT_TYPE, new FireData(), new File("fire.pdf"));
 ```
@@ -27,14 +27,14 @@ Certain elements in the freemarker template can be replaced by either map or cha
 The MapBuilder builds urls that are compliant with the mapbox static api:
 
 ```java
-  String mapUrl = mapBuilder.newMap(MapType.SATELLITE, context.getSuspectedSource())
-                            .zoomLevel(15)
-                            .addMarker(context.getPoints().get(0), BLUE, "1")
-                            .addMarker(context.getPoints().get(1), BLUE, "1")
-                            .addMarker(context.getPoints().get(2), GREEN, "2")
-                            .addPath(context.getFireLine(), RED)
-                            .addArrow(context.getSuspectedSource(), context.getWindBearing(), WHITE, BLACK)
-                            .buildUrl();
+String mapUrl = mapBuilder.newMap(MapType.SATELLITE, context.getSuspectedSource())
+                        .zoomLevel(15)
+                        .addMarker(context.getPoints().get(0), BLUE, "1")
+                        .addMarker(context.getPoints().get(1), BLUE, "1")
+                        .addMarker(context.getPoints().get(2), GREEN, "2")
+                        .addPath(context.getFireLine(), RED)
+                        .addArrow(context.getSuspectedSource(), context.getWindBearing(), WHITE, BLACK)
+                        .buildUrl();
 ```
 
 A sample report can be seen [here](https://github.com/plasma147/report-gen/raw/master/fire.pdf) 

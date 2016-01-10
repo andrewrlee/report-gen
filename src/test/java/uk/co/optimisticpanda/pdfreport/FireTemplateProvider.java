@@ -28,8 +28,8 @@ public class FireTemplateProvider implements TemplateDataProvider<FireData>{
 		String mapUrl = mapBuilder.newMap(MapType.SATELLITE, context.getSuspectedSource())
 				.zoomLevel(15)
 				.addMarker(context.getPoints().get(0), BLUE, "1")
-				.addMarker(context.getPoints().get(1), BLUE, "2")
-				.addMarker(context.getPoints().get(2), GREEN, "3")
+				.addMarker(context.getPoints().get(1), BLUE, "1")
+				.addMarker(context.getPoints().get(2), GREEN, "2")
 				.addPath(context.getFireLine(), RED)
 				.addArrow(context.getSuspectedSource(), context.getWindBearing(), WHITE, BLACK)
 				.buildUrl();

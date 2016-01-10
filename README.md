@@ -7,18 +7,18 @@ Playing with combining Flying Saucer, Mapbox and XCharts to create reports.
 To generate the Wildfire pdf report:
 
 ```java
-  MapBuilder mapBuilder = new MapBuilder(MapboxApiKey.get());
+MapBuilder mapBuilder = new MapBuilder(MapboxApiKey.get());
 
-  TemplateBuilder<FireData> templateBuilder = TemplateBuilder.withTemplate(
-                                              FIRE_REPORT_TYPE, 
-                                              classPathTemplateProvider("/fire.html.ftl"),
-                                              new FireTemplateProvider(mapBuilder));
+TemplateBuilder<FireData> templateBuilder = TemplateBuilder.withTemplate(
+                                          FIRE_REPORT_TYPE, 
+                                          classPathTemplateProvider("/fire.html.ftl"),
+                                          new FireTemplateProvider(mapBuilder));
 
-  ReportGenerator<FireData> generator = ReportGenerator.withTemplateBuilder(templateBuilder)
-                                             .withReplacer(new ReplaceWithMap<>())
-                                             .withReplacer(new ReplaceWithChart<>(new FireChartMaker()));
+ReportGenerator<FireData> generator = ReportGenerator.withTemplateBuilder(templateBuilder)
+                                         .withReplacer(new ReplaceWithMap<>())
+                                         .withReplacer(new ReplaceWithChart<>(new FireChartMaker()));
 
-  generator.generate(FIRE_REPORT_TYPE, new FireData(), new File("fire.pdf"));
+generator.generate(FIRE_REPORT_TYPE, new FireData(), new File("fire.pdf"));
 ```
 
 The FireTemplateProvider provides a model that gets passed to the freemarker template. 

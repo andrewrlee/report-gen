@@ -37,4 +37,4 @@ String mapUrl = mapBuilder.newMap(MapType.SATELLITE, context.getSuspectedSource(
                         .buildUrl();
 ```
 
-A sample report can be seen [here](https://github.com/plasma147/report-gen/raw/master/fire.pdf) 
+A sample report can be seen [here](https://github.com/plasma147/report-gen/raw/master/fire.pdf) and [here](https://github.com/plasma147/report-gen/raw/master/battle.pdf)

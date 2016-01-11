@@ -1,15 +1,17 @@
-package uk.co.optimisticpanda.pdfreport;
+package uk.co.optimisticpanda.pdfreport.fire;
 
 import static uk.co.optimisticpanda.pdfreport.util.ClasspathTemplateProvider.classPathTemplateProvider;
 
 import java.io.File;
 
+import uk.co.optimisticpanda.pdfreport.ReportGenerator;
+import uk.co.optimisticpanda.pdfreport.TemplateBuilder;
 import uk.co.optimisticpanda.pdfreport.charts.ReplaceWithChart;
 import uk.co.optimisticpanda.pdfreport.maps.MapBuilder;
 import uk.co.optimisticpanda.pdfreport.maps.ReplaceWithMap;
 import uk.co.optimisticpanda.pdfreport.util.MapboxApiKey;
 
-public class GenerateSampleReports {
+public class GenerateFireReport {
 
 	private static final String FIRE_REPORT_TYPE = "fire";
 

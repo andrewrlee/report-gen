@@ -1,4 +1,4 @@
-package uk.co.optimisticpanda.pdfreport;
+package uk.co.optimisticpanda.pdfreport.fire;
 
 import static uk.co.optimisticpanda.pdfreport.util.CssColour.BLACK;
 import static uk.co.optimisticpanda.pdfreport.util.CssColour.BLUE;
@@ -26,11 +26,12 @@ public class FireTemplateProvider implements TemplateDataProvider<FireData>{
 	public Map<String, Object> get(FireData context) {
 		
 		String mapUrl = mapBuilder.newMap(MapType.SATELLITE, context.getSuspectedSource())
-				.zoomLevel(15)
+				.zoomLevel(16)
 				.addMarker(context.getPoints().get(0), BLUE, "1")
 				.addMarker(context.getPoints().get(1), BLUE, "1")
 				.addMarker(context.getPoints().get(2), GREEN, "2")
 				.addPath(context.getFireLine(), RED)
+				.withDimensions(1200, 800)
 				.addArrow(context.getSuspectedSource(), context.getWindBearing(), WHITE, BLACK)
 				.buildUrl();
 		

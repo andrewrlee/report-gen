@@ -1,4 +1,4 @@
-package uk.co.optimisticpanda.pdfreport;
+package uk.co.optimisticpanda.pdfreport.fire;
 
 import java.awt.image.BufferedImage;
 

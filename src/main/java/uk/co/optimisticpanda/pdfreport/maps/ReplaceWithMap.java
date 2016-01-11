@@ -39,6 +39,7 @@ public class ReplaceWithMap<CONTEXT> implements ElementReplacer<CONTEXT> {
 
 			final FSImage fsImage = new ITextFSImage(image);
 			if ((cssWidth != -1) || (cssHeight != -1)) {
+				System.out.println(cssWidth + " " + cssHeight);
 				fsImage.scale(cssWidth, cssHeight);
 			}
 			return new ITextImageElement(fsImage);

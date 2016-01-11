@@ -56,6 +56,8 @@ public class MapBuilder {
 		private GpsPoint gpsPoint;
 		private List<Overlay> overlays = new ArrayList<>();
 		private int zoomLevel = 10;
+		private int width = 800;
+		private int height = 400;
 		
 		public Builder(String apiKey, MapType type, GpsPoint gpsPoint) {
 			this.apiKey = apiKey;
@@ -69,11 +71,23 @@ public class MapBuilder {
 			return this;
 		}
 		
+		public Builder withDimensions(int width, int height) {
+			this.width = width;
+			this.height = height;
+			return this;
+		}
+		
 		public Builder addMarker(GpsPoint point, CssColour color, String label) {
 			overlays.add(new Marker(point, color, label));
 			return this;
 		}
 
+
+		public Builder addMarkerWithArrow(GpsPoint point, String label, CssColour color, double angle, CssColour line, CssColour fill) {
+			overlays.add(new Marker(point, color, label));
+			return addArrow(point, angle, line, fill, 10);
+		}
+		
 		public Builder addPath(List<GpsPoint> points, CssColour line, CssColour fill) {
 			overlays.add(new Path(points, line, fill));
 			return this;
@@ -85,16 +99,20 @@ public class MapBuilder {
 		}
 		
 		public Builder addArrow(GpsPoint point, double angle, CssColour line, CssColour fill) {
-			GpsPoint top = new GpsPoint(point.getLatitude() + 0.0008, point.getLongitude());
-			GpsPoint bottom = new GpsPoint(point.getLatitude() - 0.0008, point.getLongitude());
-			GpsPoint bottomLeft = new GpsPoint(bottom.getLatitude(), point.getLongitude()+ 0.0002);
-			GpsPoint bottomRight = new GpsPoint(bottom.getLatitude(), point.getLongitude()- 0.0002);
+			return addArrow(point, angle, line, fill, 1);
+		}
+		
+		public Builder addArrow(GpsPoint point, double angle, CssColour line, CssColour fill, int sizeMultiplier) {
+			GpsPoint top = new GpsPoint(point.getLatitude() + (sizeMultiplier * 0.0008), point.getLongitude());
+			GpsPoint bottom = new GpsPoint(point.getLatitude() - (sizeMultiplier * 0.0008), point.getLongitude());
+			GpsPoint bottomLeft = new GpsPoint(bottom.getLatitude(), point.getLongitude()+ (sizeMultiplier * 0.0002));
+			GpsPoint bottomRight = new GpsPoint(bottom.getLatitude(), point.getLongitude()- (sizeMultiplier * 0.0002));
 			
-			GpsPoint topLeft = new GpsPoint(top.getLatitude() - 0.0005 , point.getLongitude() + 0.0002);
-			GpsPoint topRight = new GpsPoint(top.getLatitude() - 0.0005, point.getLongitude() - 0.0002);
+			GpsPoint topLeft = new GpsPoint(top.getLatitude() - (sizeMultiplier * 0.0005) , point.getLongitude() + (sizeMultiplier * 0.0002));
+			GpsPoint topRight = new GpsPoint(top.getLatitude() - (sizeMultiplier * 0.0005), point.getLongitude() - (sizeMultiplier * 0.0002));
 			
-			GpsPoint arrowLeft = new GpsPoint(topLeft.getLatitude() , topLeft.getLongitude() + 0.0004);
-			GpsPoint arrowRight = new GpsPoint(topRight.getLatitude(), topRight.getLongitude() - 0.0004);
+			GpsPoint arrowLeft = new GpsPoint(topLeft.getLatitude() , topLeft.getLongitude() + (sizeMultiplier * 0.0004));
+			GpsPoint arrowRight = new GpsPoint(topRight.getLatitude(), topRight.getLongitude() - (sizeMultiplier * 0.0004));
 			
 			return addPath(asList(
 					rotate(point, bottomLeft, angle),
@@ -107,13 +125,12 @@ public class MapBuilder {
 		}
 		
 		public String buildUrl() {
-			String url = "https://api.mapbox.com/v4/%s/%s/%f,%f,%s/800x400.png?access_token=%s";
+			String url = "https://api.mapbox.com/v4/%s/%s/%f,%f,%s/%sx%s.png?access_token=%s";
 			String markersString = overlays.stream().map(Overlay::toOverlayString).collect(Collectors.joining(","));
-			String s = String.format(url, type.getId(), markersString, gpsPoint.getLongitude(), gpsPoint.getLatitude(), zoomLevel, apiKey);
+			String s = String.format(url, type.getId(), markersString, gpsPoint.getLongitude(), gpsPoint.getLatitude(), zoomLevel, width, height, apiKey);
 			System.out.println(s);
 			return s;
 		}
-
 	}
 
 	private static class Path implements Overlay {
@@ -165,7 +182,7 @@ public class MapBuilder {
 
 		@Override
 		public String toOverlayString() {
-			return String.format("pin-s-%s+%s(%f,%f,13)", label,
+			return String.format("pin-l-%s+%s(%f,%f,13)", label,
 					color.getCode(),
 					point.getLongitude(), 
 					point.getLatitude());

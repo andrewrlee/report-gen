@@ -34,10 +34,10 @@ public class ReplaceWithChart<CONTEXT> implements ElementReplacer<CONTEXT> {
 	@Override
 	public ReplacedElement replace(int cssWidth, int cssHeight, Element element, CONTEXT context) {
 		try {
-			BufferedImage img = chartMaker.generate(cssWidth, cssHeight, element, context);
-			ByteArrayOutputStream tmp = new ByteArrayOutputStream();
-			ImageIO.write(img, "png", tmp);
-			final Image image = Image.getInstance(tmp.toByteArray());
+			byte[] img = chartMaker.generate(cssWidth, cssHeight, element, context);
+//			ByteArrayOutputStream tmp = new ByteArrayOutputStream();
+//			ImageIO.write(img, "png", tmp);
+			final Image image = Image.getInstance(img);
 
 			final FSImage fsImage = new ITextFSImage(image);
 			if ((cssWidth != -1) || (cssHeight != -1)) {

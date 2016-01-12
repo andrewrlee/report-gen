@@ -9,8 +9,8 @@
 	 	size: A4;
 		margin: 0;
 	  }
-      #map1 { width: 80%; height: 20%; padding-left: 10%; padding-top: 30px }
-      #chart1 { width: 600px; height: 400px }
+      #map1 { width: 80%; height: 10%; padding-left: 10%; padding-top: 30px }
+      .chart { width: 80%; height: 10%; padding-left: 10%; padding-top: 30px }
       .new-page{page-break-before:always}
     </style>
   </head>
@@ -22,7 +22,9 @@
 	<p><i>${mapDescription}</i></p> 	
     <p>The blue markers(1) are water drops made by the fire 'copter. The green marker(2) is the wildfire station. The Arrow points in the direction of the prevailing wind. The Red line is the fire line.</p>
     <div class="new-page"/>
-      <H2>A Random Chart</H2>
-	  <div id="chart1" class="chart"/>
+      <h2>Temperature At Water Drop 1</h2>
+	  <div data-chart-type="water-drop-1" class="chart"/>
+      <h2>Temperature At Water Drop 2</h2>
+	  <div data-chart-type="water-drop-2" class="chart"/>
   </body>
 </html>

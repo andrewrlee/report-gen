@@ -1,10 +1,6 @@
 package uk.co.optimisticpanda.pdfreport.charts;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import org.w3c.dom.Element;
 import org.xhtmlrenderer.extend.FSImage;
@@ -35,11 +31,9 @@ public class ReplaceWithChart<CONTEXT> implements ElementReplacer<CONTEXT> {
 	public ReplacedElement replace(int cssWidth, int cssHeight, Element element, CONTEXT context) {
 		try {
 			byte[] img = chartMaker.generate(cssWidth, cssHeight, element, context);
-//			ByteArrayOutputStream tmp = new ByteArrayOutputStream();
-//			ImageIO.write(img, "png", tmp);
-			final Image image = Image.getInstance(img);
+			Image image = Image.getInstance(img);
 
-			final FSImage fsImage = new ITextFSImage(image);
+			FSImage fsImage = new ITextFSImage(image);
 			if ((cssWidth != -1) || (cssHeight != -1)) {
 				fsImage.scale(cssWidth, cssHeight);
 			}

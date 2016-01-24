@@ -25,7 +25,7 @@ public class GenerateBattleReport {
 						new BattleTemplateProvider(mapBuilder));
 
 		ReportGenerator<BattleData> generator = ReportGenerator.withTemplateBuilder(templateBuilder)
-				.withReplacer(new ReplaceWithMap<>());
+				.withReplacer(new ReplaceWithMap<>((ctx, image) -> image));
 
 		generator.generate(BATTLE_REPORT_TYPE, new BattleData(), new File("battle.pdf"));
 	}
